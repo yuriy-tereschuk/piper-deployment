@@ -1,0 +1,4 @@
+FROM docker.io/library/sonarqube
+ENV SONAR_JDBC_URL=jdbc:postgresql://postgres:5432/sonarqubedb
+ENV SONAR_JDBC_USERNAME=sonarqube
+ENV SONAR_JDBC_PASSWORD=sonardbpass
