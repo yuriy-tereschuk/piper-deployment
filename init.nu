@@ -1,5 +1,5 @@
 
-#podman network create sonarqube
+podman network create sonarqube
 
 # Doesn't work for Windows. 
 # The VirtualBox shared folder is not writable by the 999:999 container user. 
@@ -11,11 +11,11 @@
 #podman volume create vol-sonarqube-logs -o type=bind -o device=/mnt/c/Users/Yuriy/Podman/FS/sonarqube-custom/logs
 #podman volume create vol-sonarqube-extensions -o type=bind -o device=/mnt/c/Users/Yuriy/Podman/FS/sonarqube-custom/extensions
 
-#podman volume create vol-postgres-data
-#podman volume create vol-pgadmin-data
-#podman volume create vol-sonarqube-data
-#podman volume create vol-sonarqube-logs
-#podman volume create vol-sonarqube-extensions
+podman volume create vol-postgres-data
+podman volume create vol-pgadmin-data
+podman volume create vol-sonarqube-data
+podman volume create vol-sonarqube-logs
+podman volume create vol-sonarqube-extensions
 
 (podman run
 	-d
@@ -50,7 +50,18 @@
 	--hostname jenkins
 	--name jenkins
 	--network sonarqube
-	-p 8080:8080
+	-p 6060:8080
 	-p 50000:50000
 	-v vol-jenkins-data:/var/jenkins_home
 	jenkins-custom)
+
+
+(podman run
+	-d
+	--hostname jenkins-agent
+	--name jenkins-agent
+	--network sonarqube
+	-v vol-jenkins-agent:/var/build
+	jenkins-agent)
+
+

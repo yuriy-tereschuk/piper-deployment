@@ -1,1 +1,11 @@
-FROM jenkins/jenkins
+FROM docker.io/jenkins/jenkins:latest
+
+ADD gradle-8.13 /opt/gradle
+ADD sonar-scanner-7.0.2.4839-linux-x64 /opt/sonar-scanner
+ADD sonar-scanner.properties /opt/sonar-scanner/conf/sonar-scanner.properties
+
+ENV SONAR_SCAN=/opt/sonar-scanner
+ENV GRADLE_HOME=/opt/gradle
+ENV PATH=${GRADLE_HOME}/bin:${SONAR_SCAN}/bin:${PATH}
+ENV SONAR_TOKEN="squ_f03ec7e40d29290af955ca530c527a9d04189c53"
+
